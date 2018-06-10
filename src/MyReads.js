@@ -8,7 +8,9 @@ const MyReads = (props) => (
             <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-            {props.bookShelves.map(m => <BookShelf title={m.title} books={m.books} />)}           
+            <BookShelf title='Currently Reading' moveBookToDifferentShelf={props.moveBookToDifferentShelf} books={props.books.filter(f => f.shelf === 'currentlyReading')} /> 
+            <BookShelf title='Want to Read' moveBookToDifferentShelf={props.moveBookToDifferentShelf} books={props.books.filter(f => f.shelf === 'wantToRead')} />  
+            <BookShelf title='Read' moveBookToDifferentShelf={props.moveBookToDifferentShelf} books={props.books.filter(f => f.shelf === 'read')} />            
         </div>
         <div className="open-search"> 
             <Link

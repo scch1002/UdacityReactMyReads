@@ -44,7 +44,7 @@ class Search extends Component {
                 { this.state.emptyQuery ?
                     'Empty Query'
                 :
-                    <BookShelf title="Search Results" books={this.state.searchBooks} />
+                    <BookShelf title="Search Results" moveBookToDifferentShelf={this.props.moveBookToDifferentShelf} books={this.state.searchBooks} />
                 }
             </div>
         </div>
