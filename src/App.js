@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import MyReads from './MyReads';
@@ -27,7 +26,7 @@ class BooksApp extends React.Component {
         return { 
           myBooks: prevState.myBooks
         };
-      });
+      }, () => BooksAPI.update(book, shelf));
     } else if (shelf === 'none') {
       book.shelf = 'none';
       this.setState((prevState) => {
@@ -35,14 +34,14 @@ class BooksApp extends React.Component {
         return { 
           myBooks: prevState.myBooks
         };
-      });
+      }, () => BooksAPI.update(book, shelf));
     } else {
       this.setState((prevState) => {
         book.shelf = shelf;
         return { 
           myBooks: prevState.myBooks
         };
-      });
+      }, () => BooksAPI.update(book, shelf));
     }
   }
   render() {

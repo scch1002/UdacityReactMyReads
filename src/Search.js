@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import BookShelf from './BookShelf';
 
 class Search extends Component {
+    static PropTypes = {
+        myBooks: PropTypes.array.isRequired,
+        moveBookToDifferentShelf: PropTypes.func.isRequired
+    } 
     state = {
         searchText: '',
         searchBooks: [],
@@ -25,7 +30,7 @@ class Search extends Component {
                         }
                         else {
                             searchBooks.push(book);
-                        }                       
+                        }
                     }
                     this.setState({
                         searchBooks: searchBooks,
