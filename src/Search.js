@@ -17,10 +17,20 @@ class Search extends Component {
         BooksAPI.search(this.state.searchText)
             .then(t => {
                 if (t !== undefined && t.error === undefined){
+                    var searchBooks = [];
+                    for(let book of t) {
+                        var includedInMyBooks = this.props.myBooks.find(f => f.id === book.id);
+                        if (includedInMyBooks !== undefined){
+                            searchBooks.push(includedInMyBooks);
+                        }
+                        else {
+                            searchBooks.push(book);
+                        }                       
+                    }
                     this.setState({
-                    searchBooks: t,
-                    emptyQuery: false
-                    })
+                        searchBooks: searchBooks,
+                        emptyQuery: false
+                        });
                 }
                 else {
                     this.setState({

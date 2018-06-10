@@ -7,9 +7,6 @@ import MyReads from './MyReads';
 import Search from './Search';
 
 class BooksApp extends React.Component {
-  static propTypes = {
-    bookShelves: PropTypes.array.isRequired,
-  }
   state = {
     initialLoad: false,
     myBooks: []    
@@ -32,8 +29,9 @@ class BooksApp extends React.Component {
         };
       });
     } else if (shelf === 'none') {
+      book.shelf = 'none';
       this.setState((prevState) => {
-        prevState.myBooks.splice(prevState.myBooks.indexof(book), 1);
+        prevState.myBooks.splice(prevState.myBooks.indexOf(book), 1);
         return { 
           myBooks: prevState.myBooks
         };
@@ -55,7 +53,7 @@ class BooksApp extends React.Component {
         )}>
         </Route>
         <Route exact path='/search' render={() => (
-          <Search moveBookToDifferentShelf={this.moveBookToDifferentShelf} />
+          <Search moveBookToDifferentShelf={this.moveBookToDifferentShelf} myBooks={this.state.myBooks} />
         )}>
         </Route>
       </div>
