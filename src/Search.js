@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import BookShelf from './BookShelf';
 
-const Search = (props) => (
-    <div className="search-books">
-        <div className="search-books-bar">
-            <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-            <div className="search-books-input-wrapper">
-            {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author"/>
-
+class Search extends Component {
+    state = {
+        searchText: '',
+        searchBooks: [],
+        emptyQuery: true   
+    }
+    onSearchTextChange = (event) => {
+        this.setState({
+            searchText: event.target.value
+        },
+        () =>
+        BooksAPI.search(this.state.searchText)
+            .then(t => {
+                if (t !== undefined && t.error === undefined){
+                    this.setState({
+                    searchBooks: t,
+                    emptyQuery: false
+                    })
+                }
+                else {
+                    this.setState({
+                        searchBooks: [],
+                        emptyQuery: true
+                    })
+                }
+            })
+        );
+    }
+    render () {
+        return (
+        <div className="search-books">
+            <div className="search-books-bar">
+                <Link className="close-search" to='/'>Close</Link>
+                <div className="search-books-input-wrapper">
+                    <input type="text" onChange={this.onSearchTextChange} value={this.state.searchText} placeholder="Search by title or author"/>
+                </div>
+            </div>
+            <div className="search-books-results">
+                { this.state.emptyQuery ?
+                    'Empty Query'
+                :
+                    <BookShelf title="Search Results" books={this.state.searchBooks} />
+                }
             </div>
         </div>
-        <div className="search-books-results">
-            <ol className="books-grid"></ol>
-        </div>
-    </div>
-)
-
+    )}
+}
 export default Search;
