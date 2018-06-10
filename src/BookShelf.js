@@ -1,4 +1,5 @@
 import React from 'react'
+import Book from './Book'
 
 const BookShelf = (props) => (
     <div className="bookshelf">
@@ -10,3 +11,5 @@ const BookShelf = (props) => (
         </div>
     </div>
 )
+
+export default BookShelf;

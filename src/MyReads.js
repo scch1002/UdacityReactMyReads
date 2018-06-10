@@ -7,10 +7,12 @@ const MyReads = (props) => (
             <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-            {props.bookShelves.map(m => <BookShelf books={m} />)}           
+            {props.bookShelves.map(m => <BookShelf title={m.title} books={m.books} />)}           
         </div>
         <div className="open-search">
             <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
         </div>
     </div>
 )
+
+export default MyReads;
